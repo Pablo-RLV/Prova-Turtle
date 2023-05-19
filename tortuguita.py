@@ -87,16 +87,16 @@ class TurtleController(Node):
             self.update_set_point()
         if abs(x_diff) > self.limite:
             if x_diff > 0:
-                msg.linear.x = 0.25
+                msg.linear.x = 0.5
             else:
-                msg.linear.x = -0.25
+                msg.linear.x = -0.5
         else:
             msg.linear.x = 0.0
         if abs(y_diff) > self.limite:
             if y_diff > 0:
-                msg.linear.y = 0.25
+                msg.linear.y = 0.5
             else:
-                msg.linear.y = -0.25
+                msg.linear.y = -0.5
         else:
             msg.linear.y = 0.0
         self.publisher.publish(msg)
@@ -111,7 +111,7 @@ class TurtleController(Node):
                 self.set_point = self.pilha.pilha_pop()
             except IndexError:
                 if self.contador == 0:
-                    self.set_point = Pose_Turtle(x=0.0, y=-0.5) + self.pose
+                    self.set_point = Pose_Turtle(x=0.0, y=-0.25) + self.pose
                     self.contador +=1
                 else:
                     self.get_logger().info('Pilha vazia')
