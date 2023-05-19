@@ -70,6 +70,7 @@ class TurtleController(Node):
         self.set_point = Pose_Turtle(x=-40.0)
         self.fila = fila
         self.pilha = pilha
+        self.contador = 0
         self.publisher = self.create_publisher(Twist, 'turtle1/cmd_vel', 10)
         self.subscription = self.create_subscription(Pose, 'turtle1/pose', self.listener_callback, 10)
         self.control_timer = self.create_timer(timer_period_sec=control_period, callback=self.control_callback)
@@ -109,8 +110,12 @@ class TurtleController(Node):
             try:
                 self.set_point = self.pilha.pilha_pop()
             except IndexError:
-                self.get_logger().info('Pilha vazia')
-                exit()
+                if self.contador == 0:
+                    self.set_point = Pose_Turtle(x=0.0, y=-0.5) + self.pose
+                    self.contador +=1
+                else:
+                    self.get_logger().info('Pilha vazia')
+                    exit()
 
     def listener_callback(self, msg):
         self.pose = Pose_Turtle(x=msg.x, y=msg.y, theta=msg.theta)
