@@ -111,7 +111,7 @@ class TurtleController(Node):
                 self.set_point = self.pilha.pilha_pop()
             except IndexError:
                 if self.contador == 0:
-                    self.set_point = Pose_Turtle(x=0.0, y=-0.25) + self.pose
+                    self.set_point = Pose_Turtle(x=0.0, y=-0.5) + self.pose
                     self.contador +=1
                 else:
                     self.get_logger().info('Pilha vazia')
